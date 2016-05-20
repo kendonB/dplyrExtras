@@ -8,7 +8,7 @@ deparse_all <- function(x) {
 dt_env <- function(dt, env) {
   env <- new.env(parent = env, size = 2L)
   env$dt <- dt
-  env$vars <- deparse_all(groups(dt))
+  env$vars <- deparse_all(dplyr::groups(dt))
    
   env
 }
@@ -104,7 +104,7 @@ mutate_if.grouped_dt <- function(.data,.if, ..., inplace = FALSE, .if.quoted=NUL
  
   grouped_dt(
     data = data,
-    vars = groups(.data)
+    vars = dplyr::groups(.data)
   )
 }
  
@@ -118,7 +118,7 @@ mutate_if.grouped_df <- function(.data,.if, ...) {
   if (NROW(.data)==0)
     return(.data)
   .if.quoted = substitute(.if)
-  vars = groups(.data)
+  vars = dplyr::groups(.data)
   dt = data.table::as.data.table(as.data.frame(.data))
   class(dt) = c("data.table","data.frame")
   # does not seem to work correctly
